@@ -41,5 +41,6 @@
 	"dependencies": {
 		"dotenv": "^16.6.1",
 		"holodex.js": "^2.0.5"
-	}
+	},
+	"packageManager": "pnpm@10.8.0"
 }
