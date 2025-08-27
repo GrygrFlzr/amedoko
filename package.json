@@ -14,8 +14,7 @@
 	"devDependencies": {
 		"@steeze-ui/simple-icons": "^1.10.1",
 		"@steeze-ui/svelte-icon": "^1.6.2",
-		"@sveltejs/adapter-auto": "^3.3.1",
-		"@sveltejs/adapter-netlify": "^3.0.2",
+		"@sveltejs/adapter-vercel": "^5.10.2",
 		"@sveltejs/kit": "^2.36.3",
 		"@sveltejs/vite-plugin-svelte": "^3.1.2",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -42,5 +41,5 @@
 		"dotenv": "^16.6.1",
 		"holodex.js": "^2.0.5"
 	},
-	"packageManager": "pnpm@10.8.0"
+	"packageManager": "pnpm@10.15.0"
 }
