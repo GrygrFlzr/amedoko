@@ -1,25 +1,22 @@
-<!--
-  @component
-
-  Displays the current live stream and information about it.
--->
 <script lang="ts">
-    import type { Video } from "holodex.js";
+	import type { LiveStream } from '$lib/types/holodex';
+	import { Icon, Play } from 'svelte-hero-icons';
 
-    import { Icon, Play } from "svelte-hero-icons";
-
-    export let liveVideo: Video;
+	interface Props {
+		liveVideo: LiveStream;
+	}
+	const { liveVideo }: Props = $props();
 </script>
 
 <div class="mx-auto my-3">
-    <h2 class="text-3xl">Live NOW 🎥</h2>
-    <span class="text-center">
-        <a
-            href="https://youtu.be/{liveVideo.videoId}"
-            type="button"
-            class="flex flex-row text-ame-light-yellow bg-ame-red hover:bg-red-800 hover:scale-105 transition-transform transform-gpu animate-pulse focus:ring-4 focus:ring-stone-300 font-medium rounded-xl text-sm px-5 py-2.5 my-3 focus:outline-none"
-        >
-            <Icon src={Play} solid size="20" class="mr-1" />Watch on YouTube
-        </a>
-    </span>
+	<h2 class="text-3xl">Live NOW 🎥</h2>
+	<span class="text-center">
+		<a
+			href="https://youtu.be/{liveVideo.id}"
+			type="button"
+			class="my-3 flex transform-gpu animate-pulse flex-row rounded-xl bg-ame-red px-5 py-2.5 text-sm font-medium text-ame-light-yellow transition-transform hover:scale-105 hover:bg-red-800 focus:ring-4 focus:ring-stone-300 focus:outline-none"
+		>
+			<Icon src={Play} solid size="20" class="mr-1" />Watch on YouTube
+		</a>
+	</span>
 </div>

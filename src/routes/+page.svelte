@@ -1,76 +1,67 @@
 <script lang="ts">
-    import DokoImage from "$lib/DokoImage.svelte";
-    import type { PageData } from "./$types";
-    import { calculateDateDeltaMillis } from "../utils";
+	import DokoImage from '$lib/DokoImage.svelte';
+	import { calculateDateDeltaMillis } from '../utils';
+	import { getStreams } from './data.remote';
 
-    import { Icon, Play } from "svelte-hero-icons";
-    import { writable } from "svelte/store";
-    import NextStream from "$lib/NextStream.svelte";
-    import LiveStream from "$lib/LiveStream.svelte";
-    import LastStream from "$lib/LastStream.svelte";
+	import { Icon, Play } from 'svelte-hero-icons';
+	import { SvelteDate } from 'svelte/reactivity';
+	import NextStream from '$lib/NextStream.svelte';
+	import LiveStream from '$lib/LiveStream.svelte';
+	import LastStream from '$lib/LastStream.svelte';
 
-    export let data: PageData;
-    let currentDate = writable(new Date());
+	const currentDate = new SvelteDate();
+	const streamData = $derived(await getStreams());
+	const { liveVideo, nextVideo, pastVideo } = $derived(streamData.items);
 
-    let headline = "Ame Doko?";
-    let chikuTakuURL = "https://watsonamelia.itch.io/chikutaku";
+	const headline = $derived(liveVideo ? 'Ame Koko!' : 'Ame Doko?');
+	const chikuTakuURL = 'https://watsonamelia.itch.io/chikutaku';
 
-    setInterval(() => {
-        currentDate.set(new Date());
-    }, 1000);
+	$effect(() => {
+		const interval = setInterval(() => {
+			currentDate.setTime(Date.now());
+		}, 1000);
 
-    let { pastVideo, nextVideo, liveVideo } = data;
-
-    let nextStreamDelta;
-
-    let lastStreamStart =
-        pastVideo.actualStart ||
-        pastVideo.scheduledStart ||
-        pastVideo.publishedAt;
-
-    $: lastStreamDelta = calculateDateDeltaMillis(
-        $currentDate,
-        lastStreamStart
-    );
-
-    $: if (nextVideo) {
-        nextStreamDelta = calculateDateDeltaMillis(
-            nextVideo.scheduledStart,
-            $currentDate
-        );
-    }
-
-    if (liveVideo) headline = "Ame Koko!";
+		return () => {
+			clearInterval(interval);
+		};
+	});
 </script>
 
 <svelte:head>
-    <title>{data.title}</title>
+	<title>Amedoko - Home</title>
 </svelte:head>
 
-<div class="flex flex-col text-ame-dark-brown text-center py-6">
-    <h1 class="text-5xl font-bold text-center my-3">{headline}</h1>
+<div class="flex flex-col py-6 text-center text-ame-dark-brown">
+	<h1 class="my-3 text-center text-5xl font-bold">{headline}</h1>
 
-    {#if !liveVideo}
-        <LastStream {pastVideo} {lastStreamDelta} />
-    {/if}
+	{#if liveVideo}
+		<LiveStream {liveVideo} />
+	{:else if nextVideo}
+		{@const nextStreamDelta = calculateDateDeltaMillis(
+			currentDate,
+			new Date(nextVideo.available_at)
+		)}
+		<NextStream {nextVideo} {nextStreamDelta} />
+	{:else if pastVideo}
+		{@const lastStreamDelta = calculateDateDeltaMillis(
+			currentDate,
+			new Date(pastVideo.available_at)
+		)}
+		<LastStream {pastVideo} {lastStreamDelta} />
+	{:else}
+		<pre><code>{streamData.message}</code></pre>
+	{/if}
 
-    {#if liveVideo}
-        <LiveStream {liveVideo} />
-    {/if}
+	<DokoImage />
 
-    {#if nextVideo && !liveVideo}
-        <NextStream {nextVideo} {nextStreamDelta} />
-    {/if}
-
-    <DokoImage />
-
-    <span class="text-center mx-auto mt-4">
-        <a
-            href={chikuTakuURL}
-            type="button"
-            class="flex flex-row text-ame-light-yellow bg-ame-dark-brown hover:bg-amber-900 hover:scale-105 transition-transform transform-gpu focus:ring-4 focus:ring-stone-300 font-medium rounded-full text-sm px-5 py-2.5 my-3 shadow-md focus:outline-none"
-        >
-            <Icon src={Play} solid size="20" class="mr-1" />Play Chiku Taku!
-        </a>
-    </span>
+	<span class="mx-auto mt-4 text-center">
+		<a
+			rel="external"
+			href={chikuTakuURL}
+			type="button"
+			class="my-3 flex transform-gpu flex-row rounded-full bg-ame-dark-brown px-5 py-2.5 text-sm font-medium text-ame-light-yellow shadow-md transition-transform hover:scale-105 hover:bg-amber-900 focus:ring-4 focus:ring-stone-300 focus:outline-none"
+		>
+			<Icon src={Play} solid size="20" class="mr-1" />Play Chiku Taku!
+		</a>
+	</span>
 </div>

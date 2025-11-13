@@ -1,71 +1,36 @@
-import { HolodexApiClient, Video, VideoStatus, VideoType } from "holodex.js";
+import type { SvelteDate } from 'svelte/reactivity';
+
+type Datelike = Date | SvelteDate;
+const MS_IN_ONE_DAY = 86400000;
+const MS_IN_ONE_HOUR = 3600000;
+const MS_IN_ONE_MINUTE = 60000;
 
 /** Subtracts `dateA` from `dateB` */
-export function diffInDaysFloored(dateA: Date, dateB: Date): number {
-  const diff = dateA.getTime() - dateB.getTime();
-  return Math.floor(diff / 86400000);
+export function diffInDaysFloored(dateA: Datelike, dateB: Datelike): number {
+	const diff = dateA.getTime() - dateB.getTime();
+	return Math.floor(diff / MS_IN_ONE_DAY);
 }
 
 /** Returns the delta in milliseconds of 2 date objects, will always be positive */
-export function calculateDateDeltaMillis(dateA, dateB: Date): number {
-  return Math.abs(dateA.getTime() - dateB.getTime());
+export function calculateDateDeltaMillis(dateA: Datelike, dateB: Datelike): number {
+	return Math.abs(dateA.getTime() - dateB.getTime());
 }
 
 /** Returns a formatted time string of a time period in milliseconds */
 export function deltaFormatted(delta: number): string {
-  const days = (delta / 86400000) | 0;
-  const dayname = days > 1 ? "days" : days === 1 ? "day" : "";
-  const hours = ((delta % 86400000) / 3600000) | 0;
-  const minutes = ((delta % 3600000) / 60000) | 0;
-  const seconds = Math.round((delta % 60000) / 1000);
+	const days = (delta / MS_IN_ONE_DAY) | 0;
+	const dayname = days > 1 ? 'days' : days === 1 ? 'day' : '';
+	const hours = ((delta % MS_IN_ONE_DAY) / MS_IN_ONE_HOUR) | 0;
+	const minutes = ((delta % MS_IN_ONE_HOUR) / MS_IN_ONE_MINUTE) | 0;
+	const seconds = Math.round((delta % MS_IN_ONE_MINUTE) / 1000);
 
-  return `${days > 0 ? days : ""} ${dayname} ${hours} hours ${minutes} minutes ${seconds} s`;
-}
-
-export async function fetchLastLiveData(
-  client: HolodexApiClient,
-  channelId: string,
-): Promise<Video> {
-  const videos = await client.getVideos({
-    channel_id: channelId,
-    include: "live_info",
-    limit: 1,
-    type: VideoType.Stream,
-    status: VideoStatus.Past,
-  });
-
-  return videos[0];
-}
-
-export async function fetchNextLiveData(
-  client: HolodexApiClient,
-  channelId: string,
-): Promise<Video> {
-  const videos = await client.getVideos({
-    channel_id: channelId,
-    include: "live_info",
-    limit: 1,
-    type: VideoType.Stream,
-    status: VideoStatus.Upcoming,
-  });
-
-  return videos[0];
-}
-
-/** Returns a promise of an array of both live and upcoming streams for a given channel. Uses the fast endpoint. */
-export async function fetchLiveUpcomingData(
-  client: HolodexApiClient,
-  channelId: string,
-): Promise<Video[]> {
-  const videos = await client.getLiveVideosByChannelId(channelId);
-
-  return videos;
+	return `${days > 0 ? days : ''} ${dayname} ${hours} hours ${minutes} minutes ${seconds} s`;
 }
 
 export function getVideoThumbnailURL(videoID: string) {
-  return `https://img.youtube.com/vi/${videoID}/mqdefault.jpg`;
+	return `https://img.youtube.com/vi/${videoID}/mqdefault.jpg`;
 }
 
 export function getVideoURL(videoID: string) {
-  return `https://youtu.be/${videoID}`;
+	return `https://youtu.be/${videoID}`;
 }

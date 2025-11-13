@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let videoURL, streamDelta: string;
+	interface Props {
+		videoURL: string;
+		streamDeltaFormatted: string;
+	}
+	const { videoURL, streamDeltaFormatted }: Props = $props();
 </script>
 
-<a href={videoURL} class="font-bold">{streamDelta}</a>
+<a href={videoURL} class="font-bold">{streamDeltaFormatted}</a>
