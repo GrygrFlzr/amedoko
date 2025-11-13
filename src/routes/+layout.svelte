@@ -28,7 +28,10 @@
 	<meta name="twitter:image" content={page.data.twitter.image} />
 </svelte:head>
 
-<div class="bg-cogs min-h-screen bg-ame-light-yellow bg-fixed" data-bg-src={asset('/cogs.svg')}>
+<div
+	class="bg-cogs min-h-screen bg-ame-light-yellow bg-fixed"
+	style="background-image: url('{asset('/cogs.svg')}')"
+>
 	<slot />
 
 	<footer class="mt-auto flex flex-col text-ame-dark-brown">
@@ -74,9 +77,3 @@
 		</div>
 	</footer>
 </div>
-
-<style>
-	.bg-cogs {
-		background-image: attr(data-bg-src url);
-	}
-</style>
