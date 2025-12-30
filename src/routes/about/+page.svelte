@@ -15,8 +15,8 @@
 			class="underline">Watson Industries</a
 		>
 		that enables TeaMates to track the whereabouts of Ame. With AmeDoko, Gators can find out when Ame
-		was last seen and when she is expected to appear again. This can be especially useful for Gators
-		who want to make sure they don't miss out on any Ame streams. Whether you're a TeaMate, Investigator,
+		was last seen and when she is expected to appear again. This can be especially useful for Gators who
+		want to make sure they don't miss out on any Ame streams. Whether you're a TeaMate, Investigator,
 		or simply a casual viewer of Ame, AmeDoko is the perfect tool for staying up-to-date on her schedule.
 		So why wait? Start using AmeDoko today and never miss a chance to see Ame again!
 		<img

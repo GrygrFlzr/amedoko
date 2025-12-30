@@ -9,7 +9,7 @@
 	}
 	const { pastVideo, lastStreamDelta }: Props = $props();
 
-	let videoURL = getVideoURL(pastVideo.id);
+	const videoURL = $derived(getVideoURL(pastVideo.id));
 </script>
 
 <div
