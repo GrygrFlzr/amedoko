@@ -7,3 +7,4 @@
 *.svg text=auto eol=lf
 *.md text=auto eol=lf
 *.txt text=auto eol=lf
+*.webmanifest text=auto eol=lf
