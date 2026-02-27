@@ -14,7 +14,7 @@ Customize `package.json` for your project (e.g. rename the `name` field value).
 
 ## Styling
 
-All styling should be done through Tailwind. Add your own custom colors if needed in `tailwind.config.cjs`.
+All styling should be done through Tailwind. Add your own custom colors if needed in `vite.config.js`.
 Then simply use your custom colors in TailwindCSS classes in your markup.
 
 ## Channel ID
