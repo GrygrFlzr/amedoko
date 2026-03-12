@@ -1,6 +1,6 @@
-import type { PastStream, SearchReponse, UpcomingStream, LiveStream } from '$lib/types/holodex';
 import { query } from '$app/server';
 import { env } from '$env/dynamic/private';
+import type { LiveStream, PastStream, SearchReponse, UpcomingStream } from '$lib/types/holodex';
 
 const BASE_API_URI = 'https://holodex.net/api/v2';
 const AME_CH_ID = 'UCyl1z3jo3XHR1riLFKG5UAg';

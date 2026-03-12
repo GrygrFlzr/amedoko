@@ -6,4 +6,4 @@
 	const { videoURL, streamDeltaFormatted }: Props = $props();
 </script>
 
-<a href={videoURL} class="font-bold">{streamDeltaFormatted}</a>
+<a rel="external" href={videoURL} class="font-bold">{streamDeltaFormatted}</a>

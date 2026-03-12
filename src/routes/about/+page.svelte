@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { Icon, Home } from 'svelte-hero-icons';
+	import { Home, Icon } from 'svelte-hero-icons';
 </script>
 
 <svelte:head>

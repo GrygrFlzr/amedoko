@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { UpcomingStream } from './types/holodex';
-	import { getVideoThumbnailURL, getVideoURL, deltaFormatted } from '../utils';
-
 	import Timer from '$lib/Timer.svelte';
+	import { deltaFormatted, getVideoThumbnailURL, getVideoURL } from '../utils';
+	import type { UpcomingStream } from './types/holodex';
+
 	interface Props {
 		nextVideo: UpcomingStream;
 		nextStreamDelta: number;
@@ -26,7 +26,7 @@
 		<Timer {videoURL} streamDeltaFormatted={deltaFormatted(nextStreamDelta)} />
 	{/if}
 
-	<a href={videoURL}>
+	<a rel="external" href={videoURL}>
 		<img
 			src={thumbnailURL}
 			alt={nextVideo.title}

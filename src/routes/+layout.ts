@@ -1,6 +1,5 @@
-import type { LayoutLoad } from './$types';
-
 import previewImg from '$lib/assets/amedoko-landscape-twitter.png';
+import type { LayoutLoad } from './$types';
 
 export const load = (({ url }) => {
 	const description = 'Find out where is Ame!';

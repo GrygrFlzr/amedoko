@@ -12,6 +12,7 @@
 	<h2 class="text-3xl">Live NOW 🎥</h2>
 	<span class="text-center">
 		<a
+			rel="external"
 			href="https://youtu.be/{liveVideo.id}"
 			type="button"
 			class="my-3 flex transform-gpu animate-pulse flex-row rounded-xl bg-ame-red px-5 py-2.5 text-sm font-medium text-ame-light-yellow transition-transform hover:scale-105 hover:bg-red-800 focus:ring-4 focus:ring-stone-300 focus:outline-none"

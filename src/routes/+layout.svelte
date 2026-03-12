@@ -1,12 +1,10 @@
 <script lang="ts">
 	import '../app.css';
-
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Github } from '@steeze-ui/simple-icons';
-	import { GlobeAlt, Eye, QuestionMarkCircle } from 'svelte-hero-icons';
-
-	import { page } from '$app/state';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import { asset, resolve } from '$app/paths';
+	import { page } from '$app/state';
+	import { Eye, GlobeAlt, QuestionMarkCircle } from 'svelte-hero-icons';
 </script>
 
 <svelte:head>

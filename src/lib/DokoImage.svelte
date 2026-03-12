@@ -1,9 +1,9 @@
 <script lang="ts">
 	// Replace these if needed
-	import nagiGator from '$lib/assets/nagi-amedoko.jpeg';
 	import gatorBox from '$lib/assets/ame-doko-gator-box.jpeg';
 	import amewhereGator from '$lib/assets/ame-where-gator.jpeg';
 	import missingAme from '$lib/assets/missing-ame.jpeg';
+	import nagiGator from '$lib/assets/nagi-amedoko.jpeg';
 
 	const imgCollection = [
 		{ url: nagiGator, alt: 'Ame Doko gator by Nabi' },

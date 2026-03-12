@@ -1,13 +1,12 @@
 <script lang="ts">
 	import DokoImage from '$lib/DokoImage.svelte';
-	import { calculateDateDeltaMillis } from '../utils';
-	import { getStreams } from './data.remote';
-
+	import LastStream from '$lib/LastStream.svelte';
+	import LiveStream from '$lib/LiveStream.svelte';
+	import NextStream from '$lib/NextStream.svelte';
 	import { Icon, Play } from 'svelte-hero-icons';
 	import { SvelteDate } from 'svelte/reactivity';
-	import NextStream from '$lib/NextStream.svelte';
-	import LiveStream from '$lib/LiveStream.svelte';
-	import LastStream from '$lib/LastStream.svelte';
+	import { calculateDateDeltaMillis } from '../utils';
+	import { getStreams } from './data.remote';
 
 	const currentDate = new SvelteDate();
 	const streamData = $derived(await getStreams());

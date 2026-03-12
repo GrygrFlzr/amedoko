@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PastStream } from '$lib/types/holodex';
-	import { getVideoURL, deltaFormatted } from '../utils';
+	import { deltaFormatted, getVideoURL } from '../utils';
 	import Timer from './Timer.svelte';
 
 	interface Props {
