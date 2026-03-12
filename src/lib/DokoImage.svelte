@@ -10,7 +10,7 @@
 		{ url: gatorBox, alt: 'Gator in a box' },
 		{ url: amewhereGator, alt: 'Ame where gator comic' },
 		{ url: missingAme, alt: 'Missing Ame poster by CaptPolybius' }
-	];
+	] as const;
 
 	let imgIndex = $state(getRandomInt(imgCollection.length));
 	const activeImg = $derived(imgCollection[imgIndex]);

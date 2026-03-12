@@ -30,7 +30,7 @@ export const getStreams = query(async () => {
 		const reqHeaders = new Headers();
 		reqHeaders.append('User-Agent', 'amedoko.com');
 		reqHeaders.append('Content-Type', 'application/json; charset=utf-8');
-		reqHeaders.append('X-APIKEY', env?.HOLODEX_API_KEY ?? '');
+		reqHeaders.append('X-APIKEY', env.HOLODEX_API_KEY ?? '');
 		const apiResponse = await fetch(`${BASE_API_URI}/search/videoSearch`, {
 			method: 'POST',
 			headers: reqHeaders,

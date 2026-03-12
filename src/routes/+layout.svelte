@@ -5,32 +5,44 @@
 	import { asset, resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { Eye, GlobeAlt, QuestionMarkCircle } from 'svelte-hero-icons';
+	import type { LayoutProps } from './$types';
+
+	const { children, data }: LayoutProps = $props();
+
+	const canonicalHref = $derived.by(() => {
+		const { url } = page;
+		url.protocol = 'https:';
+		url.host = 'amedoko.com';
+		url.port = '443';
+		return url.href;
+	});
 </script>
 
 <svelte:head>
 	<!-- HTML Meta Tags -->
+	<link rel="canonical" href={canonicalHref} />
 	<meta name="description" content="Find out where is Ame!" />
 
 	<!-- Facebook Meta Tags -->
 	<meta property="og:url" content="https://amedoko.com" />
 	<meta property="og:type" content="website" />
 	<meta property="og:description" content="Find out where is Ame!" />
-	<meta property="og:image" content={page.data.image} />
-	<meta property="og:image:secure_url" content={page.data.image} />
+	<meta property="og:image" content={data.image} />
+	<meta property="og:image:secure_url" content={data.image} />
 	<!-- Twitter Meta Tags -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta property="twitter:domain" content="amedoko.com" />
 	<meta property="twitter:url" content="https://amedoko.com" />
-	<meta name="twitter:title" content={page.data.title} />
+	<meta name="twitter:title" content={data.title} />
 	<meta name="twitter:description" content="Find out where is Ame!" />
-	<meta name="twitter:image" content={page.data.twitter.image} />
+	<meta name="twitter:image" content={data.twitter.image} />
 </svelte:head>
 
 <div
 	class="bg-cogs min-h-screen bg-ame-light-yellow bg-fixed"
 	style="background-image: url('{asset('/cogs.svg')}')"
 >
-	<slot />
+	{@render children()}
 
 	<footer class="mt-auto flex flex-col text-ame-dark-brown">
 		<div class="flex">
