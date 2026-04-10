@@ -11,6 +11,7 @@
 	<h1 class="my-4 text-center text-5xl font-bold">About</h1>
 	<p class="my-2 text-xl">
 		AmeDoko is a web application developed by <a
+			rel="external"
 			href="https://watsonindustries.live"
 			class="underline">Watson Industries</a
 		>
@@ -24,28 +25,32 @@
 			alt="A TeaMate looking for Ame."
 		/>
 		AmeDoko fetches live stream information from the fantastic
-		<a href="https://holodex.stoplight.io/docs/holodex" class="underline">Holodex API</a>.
-		<br /><br />
-		Big thanks to the following related projects for idea inspiration:
+		<a rel="external" href="https://holodex.stoplight.io/docs/holodex" class="underline"
+			>Holodex API</a
+		>.
 	</p>
+	<p>Big thanks to the following related projects for idea inspiration:</p>
 
 	<ul class="my-3 text-xl">
 		<li>
-			<a href="https://imissfauna.com" class="underline">I Miss Fauna</a>
+			<del>I Miss Fauna</del>
 		</li>
 		<li>
-			<a href="https://imissina-com.vercel.app" class="underline">I Miss Ina</a>
+			<del>I Miss Ina</del>
 		</li>
 	</ul>
 	<br />
 
 	<p class="my-2 text-xl">
-		AmeDoko patent and license owned by: <a href="https://twitter.com/DaniruKun" class="underline"
-			>@DaniruKun</a
+		AmeDoko patent and license owned by: <a
+			rel="external"
+			href="https://x.com/DaniruKun"
+			class="underline">@DaniruKun</a
 		>
-		<br />
+	</p>
+	<p>
 		Crying Gator art kindly provided by:
-		<a href="https://twitter.com/Nagi_Nyaaa" class="underline">@Nagi</a>
+		<a rel="external" href="https://x.com/Nagi_Nyaaa" class="underline">@Nagi</a>
 	</p>
 
 	<div class="mx-auto text-center">

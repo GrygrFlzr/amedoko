@@ -8,14 +8,7 @@
 	import type { LayoutProps } from './$types';
 
 	const { children, data }: LayoutProps = $props();
-
-	const canonicalHref = $derived.by(() => {
-		const { url } = page;
-		url.protocol = 'https:';
-		url.host = 'amedoko.com';
-		url.port = '443';
-		return url.href;
-	});
+	const canonicalHref = $derived(`https://amedoko.com${page.url.pathname}`);
 </script>
 
 <svelte:head>
@@ -47,6 +40,7 @@
 	<footer class="mt-auto flex flex-col text-ame-dark-brown">
 		<div class="flex">
 			<a
+				rel="external"
 				class="mx-auto text-center text-2xl underline"
 				href="https://www.youtube.com/channel/UCyl1z3jo3XHR1riLFKG5UAg">Amelia Watson's Channel</a
 			>
