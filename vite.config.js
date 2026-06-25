@@ -7,8 +7,7 @@ export default defineConfig({
 	oxc: {
 		assumptions: {
 			noDocumentAll: true
-		},
-		jsx: 'preserve'
+		}
 	},
 	worker: {
 		format: 'es'
@@ -16,11 +15,6 @@ export default defineConfig({
 	build: {
 		assetsInlineLimit: 0,
 		reportCompressedSize: false,
-		rolldownOptions: {
-			output: {
-				codeSplitting: false
-			}
-		},
 		modulePreload: {
 			polyfill: false
 		}
