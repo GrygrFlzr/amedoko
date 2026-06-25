@@ -17,7 +17,7 @@ const config = {
 		}
 	},
 	compilerOptions: {
-		runes: ({ filename }) => (/[/\\]node_modules[/\\]/.test(filename) ? undefined : true),
+		runes: true,
 		modernAst: true,
 		experimental: {
 			async: true

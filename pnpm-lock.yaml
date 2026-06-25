@@ -17,12 +17,6 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.7.1
         version: 4.7.1(prettier@3.8.4)
-      '@steeze-ui/simple-icons':
-        specifier: ^1.10.1
-        version: 1.10.1
-      '@steeze-ui/svelte-icon':
-        specifier: ^1.6.2
-        version: 1.6.2(svelte@5.56.4(@typescript-eslint/types@8.62.0))
       '@sveltejs/adapter-vercel':
         specifier: ^6.3.4
         version: 6.3.4(@sveltejs/kit@2.67.0(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.4(@typescript-eslint/types@8.62.0))(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)))(svelte@5.56.4(@typescript-eslint/types@8.62.0))(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)))
@@ -65,9 +59,6 @@ importers:
       svelte-check:
         specifier: ^4.7.0
         version: 4.7.0(picomatch@4.0.4)(svelte@5.56.4(@typescript-eslint/types@8.62.0))(typescript@6.0.3)
-      svelte-hero-icons:
-        specifier: ^5.2.0
-        version: 5.2.0(svelte@5.56.4(@typescript-eslint/types@8.62.0))
       tailwindcss:
         specifier: ^4.3.1
         version: 4.3.1
@@ -517,17 +508,6 @@ packages:
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
-
-  '@steeze-ui/heroicons@2.4.2':
-    resolution: {integrity: sha512-66luL+uaxyC6mcZigewH4phfDxNWj4sH+n6qK2VnY3zcgpMmNAgVQbMGfZYfKhLqrUo13BlqpmhWuHqAUpehlA==}
-
-  '@steeze-ui/simple-icons@1.10.1':
-    resolution: {integrity: sha512-pRdEIBR3qUG+wAjijePjFuqwB2Ikf0kHBTNTULEUiEsSSgEUKOM3/ArEgt8rgVu035rnsmwbNC/vHdciPGMdKw==}
-
-  '@steeze-ui/svelte-icon@1.6.2':
-    resolution: {integrity: sha512-Q2WP/RkM1JhMueX0FJogSj4J1bncSHaAiiPCqjcseRcHKqfpjYFPJa8bA50I+4KbyOVJ9fdUvTQ3ww9X0ITRxQ==}
-    peerDependencies:
-      svelte: ^5.0.0
 
   '@sveltejs/acorn-typescript@1.0.10':
     resolution: {integrity: sha512-4WfKk68eTih+MiJD4fSbxN7E8kVBmTMPWHUPYjvl2N0rMs53YLTT8/YjKU5Dtnz5LqDjl7LEw4U7lXR2W3J5WA==}
@@ -1409,12 +1389,6 @@ packages:
       svelte:
         optional: true
 
-  svelte-hero-icons@5.2.0:
-    resolution: {integrity: sha512-KpdMTL0bOnkxciEmDXvyVF/R5nrZ1x1uHCSt9gMrrbEd3g5HSIaaDChOutTOfeI+cZ3EJbb+OcBH/lBzJr1aEw==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0
-
   svelte@5.56.4:
     resolution: {integrity: sha512-/d0QHehmRuJW8gVz395MTkPcPozxzdjBMBE8oEYGz8O3b9KTMzzQ9ZHJQLuFKOHOPQbU6kx/X4iid/EBBzH7iw==}
     engines: {node: '>=18'}
@@ -1871,14 +1845,6 @@ snapshots:
       picomatch: 4.0.4
 
   '@standard-schema/spec@1.1.0': {}
-
-  '@steeze-ui/heroicons@2.4.2': {}
-
-  '@steeze-ui/simple-icons@1.10.1': {}
-
-  '@steeze-ui/svelte-icon@1.6.2(svelte@5.56.4(@typescript-eslint/types@8.62.0))':
-    dependencies:
-      svelte: 5.56.4(@typescript-eslint/types@8.62.0)
 
   '@sveltejs/acorn-typescript@1.0.10(acorn@8.17.0)':
     dependencies:
@@ -2674,11 +2640,6 @@ snapshots:
       postcss-selector-parser: 7.1.4
       semver: 7.8.5
     optionalDependencies:
-      svelte: 5.56.4(@typescript-eslint/types@8.62.0)
-
-  svelte-hero-icons@5.2.0(svelte@5.56.4(@typescript-eslint/types@8.62.0)):
-    dependencies:
-      '@steeze-ui/heroicons': 2.4.2
       svelte: 5.56.4(@typescript-eslint/types@8.62.0)
 
   svelte@5.56.4(@typescript-eslint/types@8.62.0):

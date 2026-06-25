@@ -1,10 +1,8 @@
 <script lang="ts">
 	import '../app.css';
-	import { Github } from '@steeze-ui/simple-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { asset, resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import { Eye, GlobeAlt, QuestionMarkCircle } from 'svelte-hero-icons';
+	import Icon from '$lib/Icon.svelte';
 	import type { LayoutProps } from './$types';
 
 	const { children, data }: LayoutProps = $props();
@@ -48,7 +46,7 @@
 
 		<div class="my-6 flex flex-col space-y-2" role="list">
 			<a class="inline-flex items-center justify-center hover:underline" href={resolve('/about')}>
-				<Icon src={QuestionMarkCircle} solid size="16" />
+				<Icon name="question-mark-circle" size={16} />
 				<p class="ml-1">About</p>
 			</a>
 
@@ -57,12 +55,12 @@
 				class="inline-flex items-center justify-center hover:underline"
 				href="https://watsonindustries.live"
 			>
-				<Icon src={GlobeAlt} solid size="16" />
+				<Icon name="globe-alt" size={16} />
 				<p class="ml-1">Watson Industries</p>
 			</a>
 
 			<a class="inline-flex items-center justify-center hover:underline" href={resolve('/privacy')}>
-				<Icon src={Eye} solid size="16" />
+				<Icon name="eye" size={16} />
 				<p class="ml-1">Privacy Policy</p>
 			</a>
 
@@ -70,7 +68,7 @@
 				rel="external"
 				class="inline-flex items-center justify-center hover:underline"
 				href="https://github.com/watsonindustries/amedoko"
-				><Icon src={Github} solid size="16" class="mr-1" /> Source Code</a
+				><Icon name="github" size={16} class="mr-1" /> Source Code</a
 			>
 		</div>
 		<div

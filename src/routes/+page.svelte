@@ -1,10 +1,10 @@
 <script lang="ts">
 	import DokoImage from '$lib/DokoImage.svelte';
+	import Icon from '$lib/Icon.svelte';
 	import LastStream from '$lib/LastStream.svelte';
 	import LiveStream from '$lib/LiveStream.svelte';
 	import NextStream from '$lib/NextStream.svelte';
 	import { onMount } from 'svelte';
-	import { Icon, Play } from 'svelte-hero-icons';
 	import { SvelteDate } from 'svelte/reactivity';
 	import { calculateDateDeltaMillis } from '../utils';
 	import { getStreams } from './data.remote';
@@ -61,7 +61,7 @@
 			type="button"
 			class="my-3 flex transform-gpu flex-row rounded-full bg-ame-dark-brown px-5 py-2.5 text-sm font-medium text-ame-light-yellow shadow-md transition-transform hover:scale-105 hover:bg-amber-900 focus:ring-4 focus:ring-stone-300 focus:outline-none"
 		>
-			<Icon src={Play} solid size="20" class="mr-1" />Play Chiku Taku!
+			<Icon name="play" size={20} class="mr-1" />Play Chiku Taku!
 		</a>
 	</span>
 </div>

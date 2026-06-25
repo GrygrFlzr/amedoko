@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { Home, Icon } from 'svelte-hero-icons';
+	import Icon from '$lib/Icon.svelte';
 </script>
 
 <svelte:head>
@@ -59,7 +59,7 @@
 			type="button"
 			class="my-3 mr-2 flex flex-row rounded-lg bg-ame-dark-brown px-5 py-2.5 text-sm font-medium text-ame-light-yellow hover:bg-stone-600 focus:ring-4 focus:ring-stone-300 focus:outline-none"
 		>
-			<Icon src={Home} solid size="20" class="mr-1" />Go Back
+			<Icon name="home" size={20} class="mr-1" />Go Back
 		</a>
 	</div>
 </div>
