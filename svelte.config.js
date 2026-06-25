@@ -6,14 +6,12 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		experimental: {
-			remoteFunctions: true
+			remoteFunctions: true,
+			explicitEnvironmentVariables: true
 		},
 		version: {
 			name: execSync('git rev-parse HEAD').toString().trim(),
 			pollInterval: 0
-		},
-		output: {
-			bundleStrategy: 'single'
 		}
 	},
 	compilerOptions: {

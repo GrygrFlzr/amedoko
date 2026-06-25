@@ -1,5 +1,5 @@
+import { HOLODEX_API_KEY } from '$app/env/private';
 import { query } from '$app/server';
-import { env } from '$env/dynamic/private';
 import type { LiveStream, PastStream, SearchResponse, UpcomingStream } from '$lib/types/holodex';
 
 const BASE_API_URI = 'https://holodex.net/api/v2';
@@ -32,7 +32,7 @@ export const getStreams = query(async () => {
 			headers: {
 				'User-Agent': 'amedoko.com',
 				'Content-Type': 'application/json; charset=utf-8',
-				'X-APIKEY': env.HOLODEX_API_KEY ?? ''
+				'X-APIKEY': HOLODEX_API_KEY
 			},
 			body: JSON.stringify({
 				sort: 'newest',

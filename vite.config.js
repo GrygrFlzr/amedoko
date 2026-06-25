@@ -13,7 +13,6 @@ export default defineConfig({
 		format: 'es'
 	},
 	build: {
-		assetsInlineLimit: 0,
 		reportCompressedSize: false,
 		modulePreload: {
 			polyfill: false
