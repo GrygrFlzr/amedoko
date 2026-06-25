@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { SvelteDate } from 'svelte/reactivity';
 	import { calculateDateDeltaMillis } from '../utils';
-	import { getStreams } from './data.remote';
+	import { getDokoSeed, getStreams } from './data.remote';
 
 	const currentDate = new SvelteDate();
 	const streamData = $derived(await getStreams());
@@ -52,7 +52,7 @@
 		<pre><code>{streamData.message}</code></pre>
 	{/if}
 
-	<DokoImage />
+	<DokoImage seed={await getDokoSeed()} />
 
 	<span class="mx-auto mt-4 text-center">
 		<a

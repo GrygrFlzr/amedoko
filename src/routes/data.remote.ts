@@ -1,3 +1,4 @@
+import { getCache } from '@vercel/functions';
 import { HOLODEX_API_KEY } from '$app/env/private';
 import { query } from '$app/server';
 import type { LiveStream, PastStream, SearchResponse, UpcomingStream } from '$lib/types/holodex';
@@ -8,25 +9,51 @@ const EXCLUDE_EXTERNAL_CHANNEL_IDS = [
 	'UCotXwY6s8pWmuWd_snKYjhg' // hololive English channel
 ];
 const EXCLUDE_TOPIC_IDS = ['membersonly', 'shorts', 'FreeChat'];
-const TTL_MS = 60_000;
 
-type CachedStreams = {
-	timestamp: number | null;
+const TTL_SECONDS = 60;
+const CACHE_KEY = 'holodex:ame-streams';
+const CACHE_TAG = 'ame-streams';
+
+type Streams = {
 	pastVideo: PastStream | null;
 	liveVideo: LiveStream | null;
 	nextVideo: UpcomingStream | null;
 };
+type CacheEntry = Streams & { fetchedAt: number };
 
-const initialCacheObj: CachedStreams = {
-	timestamp: null,
-	pastVideo: null,
-	liveVideo: null,
-	nextVideo: null
-};
-let cache: CachedStreams = initialCacheObj;
+const emptyStreams: Streams = { pastVideo: null, liveVideo: null, nextVideo: null };
+
+async function readCache(): Promise<CacheEntry | undefined> {
+	try {
+		return (await getCache().get(CACHE_KEY)) as CacheEntry | undefined;
+	} catch {
+		return undefined;
+	}
+}
+
+async function writeCache(entry: CacheEntry): Promise<void> {
+	try {
+		await getCache().set(CACHE_KEY, entry, {
+			ttl: TTL_SECONDS,
+			tags: [CACHE_TAG],
+			name: 'holodex ame streams'
+		});
+	} catch {
+		// cache unavailable
+		// pass through without persisting
+	}
+}
 
 export const getStreams = query(async () => {
-	if (cache.timestamp === null || Date.now() - cache.timestamp > TTL_MS) {
+	// 1. check regional runtime cache
+	const cached = await readCache();
+	if (cached) {
+		const { fetchedAt, ...items } = cached;
+		return { items, age: Math.floor((Date.now() - fetchedAt) / 1_000), message: 'ok' };
+	}
+
+	// 2. cache miss
+	try {
 		const apiResponse = await fetch(`${BASE_API_URI}/search/videoSearch`, {
 			method: 'POST',
 			headers: {
@@ -44,13 +71,13 @@ export const getStreams = query(async () => {
 			})
 		});
 
-		// Validate response
+		// Validate before caching
 		const responseText = await apiResponse.text();
 		if (responseText === 'Incorrect X-APIKEY') {
 			console.error('Incorrect X-APIKEY');
 
 			return {
-				items: initialCacheObj,
+				items: emptyStreams,
 				age: 0,
 				message: 'Your deployment of Amedoko did not specify `HOLODEX_API_KEY`'
 			};
@@ -59,18 +86,9 @@ export const getStreams = query(async () => {
 		if ('message' in responseData) {
 			// API returned an error, do not cache
 			console.error(responseData.message);
-
-			return {
-				items: initialCacheObj,
-				age: 0,
-				message: 'Unexpected response from upstream server'
-			};
+			return { items: emptyStreams, age: 0, message: 'Unexpected response from upstream server' };
 		}
-
-		// Should be valid, extract and cache
-		const { items: streamEntries } = responseData;
-		const filteredStreamEntries = streamEntries.filter((stream) => {
-			// Exclude unarchived streams
+		const filtered = responseData.items.filter((stream) => {
 			if (stream.status === 'missing') return false;
 			// Exclude compilations on other channels
 			if (EXCLUDE_EXTERNAL_CHANNEL_IDS.includes(stream.channel.id)) return false;
@@ -78,22 +96,27 @@ export const getStreams = query(async () => {
 			if (stream.topic_id && EXCLUDE_TOPIC_IDS.includes(stream.topic_id)) return false;
 			return true;
 		});
-		const pastVideo = filteredStreamEntries.find((stream) => stream.status === 'past') || null;
-		const liveVideo = filteredStreamEntries.find((stream) => stream.status === 'live') || null;
-		const nextVideo = filteredStreamEntries.find((stream) => stream.status === 'upcoming') || null;
-		cache = { timestamp: Date.now(), pastVideo, liveVideo, nextVideo };
-		return {
-			items: cache,
-			age: 0,
-			message: 'ok'
+		const items: Streams = {
+			pastVideo: filtered.find((s) => s.status === 'past') ?? null,
+			liveVideo: filtered.find((s) => s.status === 'live') ?? null,
+			nextVideo: filtered.find((s) => s.status === 'upcoming') ?? null
 		};
-	} else {
-		// Use cached data
-		const age = Math.floor((Date.now() - cache.timestamp) / 1_000);
-		return {
-			items: cache,
-			age,
-			message: 'ok'
-		};
+
+		// 3. persist success in cache
+		await writeCache({ ...items, fetchedAt: Date.now() });
+
+		return { items, age: 0, message: 'ok' };
+	} catch (e) {
+		if (e instanceof TypeError) {
+			return {
+				items: emptyStreams,
+				age: 0,
+				message: 'Either the upstream URL is invalid or a network error occured'
+			};
+		}
+
+		throw e;
 	}
 });
+
+export const getDokoSeed = query(async () => Math.random());

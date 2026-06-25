@@ -12,12 +12,9 @@
 		{ url: missingAme, alt: 'Missing Ame poster by CaptPolybius' }
 	] as const;
 
-	let imgIndex = $state(getRandomInt(imgCollection.length));
+	const { seed }: { seed: number } = $props();
+	let imgIndex = $derived(Math.floor(seed * imgCollection.length));
 	const activeImg = $derived(imgCollection[imgIndex]);
-
-	function getRandomInt(max: number) {
-		return Math.floor(Math.random() * max);
-	}
 
 	function handleClick() {
 		imgIndex = (imgIndex + 1) % imgCollection.length;
