@@ -93,4 +93,4 @@ export type PastStream = BaseStreamEntry & {
 export type StreamEntry = UpcomingStream | LiveStream | MissingStream | PastStream;
 export type ValidSearchReponse = { total: number; items: StreamEntry[] };
 export type ErrorSearchResponse = { message: string };
-export type SearchReponse = ValidSearchReponse | ErrorSearchResponse;
+export type SearchResponse = ValidSearchReponse | ErrorSearchResponse;

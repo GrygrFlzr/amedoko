@@ -1,6 +1,6 @@
 import { query } from '$app/server';
 import { env } from '$env/dynamic/private';
-import type { LiveStream, PastStream, SearchReponse, UpcomingStream } from '$lib/types/holodex';
+import type { LiveStream, PastStream, SearchResponse, UpcomingStream } from '$lib/types/holodex';
 
 const BASE_API_URI = 'https://holodex.net/api/v2';
 const AME_CH_ID = 'UCyl1z3jo3XHR1riLFKG5UAg';
@@ -8,7 +8,7 @@ const EXCLUDE_EXTERNAL_CHANNEL_IDS = [
 	'UCotXwY6s8pWmuWd_snKYjhg' // hololive English channel
 ];
 const EXCLUDE_TOPIC_IDS = ['membersonly', 'shorts', 'FreeChat'];
-const TTL_SECONDS = 60;
+const TTL_MS = 60_000;
 
 type CachedStreams = {
 	timestamp: number | null;
@@ -17,7 +17,7 @@ type CachedStreams = {
 	nextVideo: UpcomingStream | null;
 };
 
-const initialCacheObj = {
+const initialCacheObj: CachedStreams = {
 	timestamp: null,
 	pastVideo: null,
 	liveVideo: null,
@@ -26,14 +26,14 @@ const initialCacheObj = {
 let cache: CachedStreams = initialCacheObj;
 
 export const getStreams = query(async () => {
-	if (cache.timestamp === null || Date.now() - cache.timestamp > TTL_SECONDS * 1_000) {
-		const reqHeaders = new Headers();
-		reqHeaders.append('User-Agent', 'amedoko.com');
-		reqHeaders.append('Content-Type', 'application/json; charset=utf-8');
-		reqHeaders.append('X-APIKEY', env.HOLODEX_API_KEY ?? '');
+	if (cache.timestamp === null || Date.now() - cache.timestamp > TTL_MS) {
 		const apiResponse = await fetch(`${BASE_API_URI}/search/videoSearch`, {
 			method: 'POST',
-			headers: reqHeaders,
+			headers: {
+				'User-Agent': 'amedoko.com',
+				'Content-Type': 'application/json; charset=utf-8',
+				'X-APIKEY': env.HOLODEX_API_KEY ?? ''
+			},
 			body: JSON.stringify({
 				sort: 'newest',
 				target: ['stream'],
@@ -55,7 +55,7 @@ export const getStreams = query(async () => {
 				message: 'Your deployment of Amedoko did not specify `HOLODEX_API_KEY`'
 			};
 		}
-		const responseData: SearchReponse = JSON.parse(responseText);
+		const responseData: SearchResponse = JSON.parse(responseText);
 		if ('message' in responseData) {
 			// API returned an error, do not cache
 			console.error(responseData.message);

@@ -3,6 +3,7 @@
 	import LastStream from '$lib/LastStream.svelte';
 	import LiveStream from '$lib/LiveStream.svelte';
 	import NextStream from '$lib/NextStream.svelte';
+	import { onMount } from 'svelte';
 	import { Icon, Play } from 'svelte-hero-icons';
 	import { SvelteDate } from 'svelte/reactivity';
 	import { calculateDateDeltaMillis } from '../utils';
@@ -15,7 +16,7 @@
 	const headline = $derived(liveVideo ? 'Ame Koko!' : 'Ame Doko?');
 	const chikuTakuURL = 'https://watsonamelia.itch.io/chikutaku';
 
-	$effect(() => {
+	onMount(() => {
 		const interval = setInterval(() => {
 			currentDate.setTime(Date.now());
 		}, 1000);
@@ -36,13 +37,13 @@
 	{#if liveVideo}
 		<LiveStream {liveVideo} />
 	{:else if nextVideo}
-		{@const nextStreamDelta = calculateDateDeltaMillis(
+		{const nextStreamDelta = calculateDateDeltaMillis(
 			currentDate,
 			new Date(nextVideo.available_at)
 		)}
 		<NextStream {nextVideo} {nextStreamDelta} />
 	{:else if pastVideo}
-		{@const lastStreamDelta = calculateDateDeltaMillis(
+		{const lastStreamDelta = calculateDateDeltaMillis(
 			currentDate,
 			new Date(pastVideo.available_at)
 		)}
